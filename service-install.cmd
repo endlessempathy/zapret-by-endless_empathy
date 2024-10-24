@@ -21,9 +21,11 @@ set "count=0"
 for %%f in (*.cmd) do (
     set "filename=%%~nxf"
     if /i not "!filename:~0,7!"=="service" (
-        set /a count+=1
-        echo !count!. %%f
-        set "file!count!=%%f"
+        if /i not "!filename:~0,6!"=="update" (
+            set /a count+=1
+            echo !count!. %%f
+            set "file!count!=%%f"
+        )
     )
 )
 
