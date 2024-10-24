@@ -3,11 +3,13 @@ setlocal EnableDelayedExpansion
 chcp 65001 >nul
 :: 65001 - UTF-8
 
-:: Admin rights check
-echo Предупреждение: Данный файл должен быть запущен с правами администратора (ПКМ - Запустить от имени администратора).
-echo Нажмите любую клавишу, чтобы продолжить создание сервиса.
-pause
-cls
+:: Check for administrator privileges
+net session >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [Внимание] Данный файл должен быть запущен с правами администратора: ПКМ → Запустить от имени администратора.
+    pause
+    exit /b
+)
 
 cd /d "%~dp0"
 
