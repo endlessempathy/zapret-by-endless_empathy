@@ -13,9 +13,10 @@ if %errorlevel% neq 0 (
 
 cd /d "%~dp0"
 
+:: Set the BIN variable to the path of the bin directory
 set BIN_PATH=%~dp0bin\
 
-:: Поиск .bat файлов в текущей категории, исключая файлы, которые начинаются с "service"
+:: Search for .bat files in current directory, except files that start with "service".
 set "count=0"
 for %%f in (*.bat) do (
     set "filename=%%~nxf"
@@ -26,7 +27,7 @@ for %%f in (*.bat) do (
     )
 )
 
-:: Выбираем файл
+:: Choose file
 set "choice="
 set /p "choice=Введите номер файла: "
 
@@ -39,7 +40,7 @@ if not defined selectedFile (
     goto :eof
 )
 
-:: Парсим аргументы (mergeargs: 2=start wf|1=wf argument|0=default)
+:: Parse arguments (mergeargs: 2=start wf|1=wf argument|0=default)
 set "args="
 set "capture=0"
 set "mergeargs=0"
@@ -106,16 +107,31 @@ for /f "tokens=*" %%a in ('type "!selectedFile!"') do (
     )
 )
 
-:: Экзекьютим сервис со спаршенными аргументами
+:: Execute service with parsed arguments
 set ARGS=%args%
 echo Final args: !ARGS!
 
+:: Set the service name
 set SRVCNAME=zapret
 
-net stop %SRVCNAME%
-sc delete %SRVCNAME%
+:: Stop the service if it is running
+echo Stopping service "%SRVCNAME%"...
+net stop "%SRVCNAME%" >nul 2>&1
+if errorlevel 1 (
+    echo Service "%SRVCNAME%" is not running or does not exist.
+)
+
+:: Delete the service
+echo Deleting service "%SRVCNAME%"...
+sc delete "%SRVCNAME%" >nul 2>&1
+if errorlevel 1 (
+    echo Failed to delete service "%SRVCNAME%". It may not exist.
+)
+
+:: Create the service with the specified parameters
 sc create %SRVCNAME% binPath= "\"%BIN_PATH%winws.exe\" %ARGS%" DisplayName= "%SRVCNAME%" start= auto
 sc description %SRVCNAME% "zapret DPI bypass software"
 sc start %SRVCNAME%
 
+:: Wait for user input before closing the window
 pause

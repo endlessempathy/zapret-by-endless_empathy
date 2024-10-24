@@ -10,14 +10,49 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
+:: Set the service name
 set SRVCNAME=zapret
 
-net stop %SRVCNAME%
-sc delete %SRVCNAME%
+:: Stop the service if it is running
+echo Stopping service "%SRVCNAME%"...
+net stop "%SRVCNAME%" >nul 2>&1
+if errorlevel 1 (
+    echo Service "%SRVCNAME%" is not running or does not exist.
+)
 
-net stop "WinDivert"
-sc delete "WinDivert"
-net stop "WinDivert14"
-sc delete "WinDivert14"
+:: Delete the service
+echo Deleting service "%SRVCNAME%"...
+sc delete "%SRVCNAME%" >nul 2>&1
+if errorlevel 1 (
+    echo Failed to delete service "%SRVCNAME%". It may not exist.
+)
+
+:: Stop WinDivert if it is running
+echo Stopping service "%SRVCNAME%"...
+net stop "WinDivert" >nul 2>&1
+if errorlevel 1 (
+    echo Service "%SRVCNAME%" is not running or does not exist.
+)
+
+:: Delete WinDivert
+echo Deleting service "%SRVCNAME%"...
+sc delete "WinDivert" >nul 2>&1
+if errorlevel 1 (
+    echo Failed to delete service "%SRVCNAME%". It may not exist.
+)
+
+:: Stop WinDivert14 if it is running
+echo Stopping service "%SRVCNAME%"...
+net stop "WinDivert14" >nul 2>&1
+if errorlevel 1 (
+    echo Service "%SRVCNAME%" is not running or does not exist.
+)
+
+:: Delete WinDivert14
+echo Deleting service "%SRVCNAME%"...
+sc delete "WinDivert14" >nul 2>&1
+if errorlevel 1 (
+    echo Failed to delete service "%SRVCNAME%". It may not exist.
+)
 
 pause
