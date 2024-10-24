@@ -50,7 +50,7 @@
 Вы можете поддержать проект, поставив :star: (сверху справа репозитория)!  
 Также, вы можете поддержать разработчика [оригинального репозитория zapret](https://github.com/bol-van/zapret/issues/590) тут - https://github.com/bol-van/zapret/issues/590
 
-## Благодарности и Соавторы
+## Благодарности
 
 Большое спасибо [bol-van](https://github.com/bol-van/), создателю оригинального репозитория [zapret](https://github.com/bol-van/zapret/).  
 Дополнительная благодарность [Flowseal](https://github.com/Flowseal/), за удобные скрипты в его репозитории [zapret-discord-youtube](https://github.com/Flowseal/zapret-discord-youtube/).
