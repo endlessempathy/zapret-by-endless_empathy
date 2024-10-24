@@ -16,9 +16,9 @@ cd /d "%~dp0"
 :: Set the BIN variable to the path of the bin directory
 set BIN_PATH=%~dp0bin\
 
-:: Search for .bat files in current directory, except files that start with "service".
+:: Search for .cmd files in current directory, except files that start with "service".
 set "count=0"
-for %%f in (*.bat) do (
+for %%f in (*.cmd) do (
     set "filename=%%~nxf"
     if /i not "!filename:~0,7!"=="service" (
         set /a count+=1
