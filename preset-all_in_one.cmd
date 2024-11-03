@@ -16,4 +16,4 @@ start "zapret: all in one" /min "%BIN%winws.exe" ^
 --filter-tcp=80 --hostlist="hostlists\list-russia_blacklist.txt" --hostlist="hostlists\list-custom.txt" --dpi-desync=fake,split2 --dpi-desync-fooling=md5sig --dpi-desync-ttl=4 --new ^
 --filter-tcp=443 --hostlist="hostlists\list-russia_blacklist.txt" --hostlist="hostlists\list-custom.txt" --dpi-desync=fake,split2 --dpi-desync-split-seqovl=2 --dpi-desync-split-tls=sniext --dpi-desync-fake-tls="%BIN%tls_clienthello_www_google_com.bin" --dpi-desync-ttl=4 --new ^
 --filter-tcp=443 --hostlist="hostlists\list-discord.txt" --dpi-desync=fake,split2 --dpi-desync-fooling=md5sig --dpi-desync-ttl=4 --new ^
---filter-udp=50000-50100 --ipset="hostlists\ipset-discord.txt" --dpi-desync=fake --dpi-desync-any-protocol --dpi-desync-cutoff=n2
+--filter-udp=50000-50100 --ipset="hostlists\ipset-discord.txt" --dpi-desync=fake --dpi-desync-any-protocol --dpi-desync-cutoff=d2 --dpi-desync-fake-unknown-udp=0x00
